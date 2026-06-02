@@ -70,3 +70,46 @@ if anomalies:
         print(f"⚠️  {a}")
 else:
     print("No anomalies found in any file!")
+
+
+
+
+
+# =====================
+# TASK 6 - Fund Master Exploration
+# =====================
+
+print("\n" + "=" * 60)
+print("TASK 6 - FUND MASTER EXPLORATION")
+print("=" * 60)
+
+fm = pd.read_csv("data/raw/01_fund_master.csv")
+
+print("\n1. Unique Fund Houses:")
+for fh in fm['fund_house'].unique():
+    print(f"   - {fh}")
+
+print(f"\n   Total: {fm['fund_house'].nunique()} Fund Houses")
+
+print("\n2. Unique Categories:")
+for cat in fm['category'].unique():
+    print(f"   - {cat}")
+
+print(f"\n   Total: {fm['category'].nunique()} Categories")
+
+print("\n3. Unique Sub-Categories:")
+for sub in fm['sub_category'].unique():
+    print(f"   - {sub}")
+
+print(f"\n   Total: {fm['sub_category'].nunique()} Sub-Categories")
+
+print("\n4. Unique Risk Grades:")
+for risk in fm['risk_category'].unique():
+    print(f"   - {risk}")
+
+print(f"\n   Total: {fm['risk_category'].nunique()} Risk Grades")
+
+print("\n5. AMFI Scheme Code Structure:")
+print(f"   - Total Schemes : {fm['amfi_code'].nunique()}")
+print(f"   - Code Range    : {fm['amfi_code'].min()} to {fm['amfi_code'].max()}")
+print(f"   - Sample Codes  : {list(fm['amfi_code'].head())}")
