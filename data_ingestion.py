@@ -113,3 +113,54 @@ print("\n5. AMFI Scheme Code Structure:")
 print(f"   - Total Schemes : {fm['amfi_code'].nunique()}")
 print(f"   - Code Range    : {fm['amfi_code'].min()} to {fm['amfi_code'].max()}")
 print(f"   - Sample Codes  : {list(fm['amfi_code'].head())}")
+
+
+
+
+
+# =====================
+# TASK 7 - AMFI Code Validation
+# =====================
+
+print("\n" + "=" * 60)
+print("TASK 7 - AMFI CODE VALIDATION")
+print("=" * 60)
+
+nav = pd.read_csv("data/raw/02_nav_history.csv")
+
+# Dono files se codes nikalo
+fm_codes = set(fm['amfi_code'].unique())
+nav_codes = set(nav['amfi_code'].unique())
+
+# Comparison
+matched = fm_codes & nav_codes
+missing_in_nav = fm_codes - nav_codes
+extra_in_nav = nav_codes - fm_codes
+
+print(f"\nTotal codes in fund_master  : {len(fm_codes)}")
+print(f"Total codes in nav_history  : {len(nav_codes)}")
+print(f"Codes matched               : {len(matched)}")
+print(f"Codes missing in nav        : {len(missing_in_nav)}")
+print(f"Extra codes in nav          : {len(extra_in_nav)}")
+
+if missing_in_nav:
+    print(f"\n⚠️  Missing Codes: {missing_in_nav}")
+else:
+    print("\n✅ All fund_master codes exist in nav_history!")
+
+if extra_in_nav:
+    print(f"\n⚠️  Extra codes in nav not in fund_master: {extra_in_nav}")
+else:
+    print("✅ No extra codes in nav_history!")
+
+# Data Quality Summary
+print("\n" + "=" * 60)
+print("DATA QUALITY SUMMARY")
+print("=" * 60)
+print("1. 9/10 files are completely clean with no missing values")
+print("2. 04_monthly_sip_inflows.csv has 12 missing values in")
+print("   yoy_growth_pct — expected, first 12 months have no")
+print("   previous year data to compare")
+print(f"3. AMFI code match: {len(matched)}/{len(fm_codes)} codes verified")
+print("4. date columns are stored as string — needs conversion")
+print("   in processing stage")
